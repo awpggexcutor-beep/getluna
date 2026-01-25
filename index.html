@@ -1,158 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Luna</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>Luna Executor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* =====================
-   Base
-===================== */
-* {
-  box-sizing: border-box;
-  font-family: "Inter", "Segoe UI", sans-serif;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #141414, #0b0b0b 70%);
-  color: #eaeaea;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at top, #0e0e0e, #050505 70%);
+  color: #f2f2f2;
+  overflow-x: hidden;
 }
 
-/* =====================
-   Container
-===================== */
-.container {
+/* ===== HERO ===== */
+.hero {
   text-align: center;
-  padding: 60px 40px;
-  border-radius: 18px;
-  background: rgba(20, 20, 20, 0.65);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.8);
-  max-width: 520px;
-  width: 100%;
+  padding: 180px 20px 100px;
 }
 
-/* =====================
-   Title
-===================== */
-.title {
-  font-size: 42px;
+.hero h1 {
+  font-size: 3.2rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
+  letter-spacing: -1px;
 }
 
-.subtitle {
-  font-size: 15px;
-  opacity: 0.6;
-  margin-bottom: 42px;
+.hero p {
+  margin-top: 14px;
+  color: rgba(255,255,255,0.6);
 }
 
-/* =====================
-   Download Button
-===================== */
-.download-btn {
-  appearance: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
+/* ===== ACTION BUTTONS ===== */
+.actions {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
 
-  padding: 16px 42px;
-  font-size: 16px;
+.action-btn {
+  padding: 14px 32px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #000;
   font-weight: 600;
-  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
 
-  background: linear-gradient(
-    135deg,
-    #f2f2f2,
-    #cfcfcf
-  );
-  color: #0a0a0a;
+.action-btn.secondary {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+}
 
-  box-shadow:
-    0 8px 20px rgba(255, 255, 255, 0.08),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+
+/* ===== CARDS ===== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+  max-width: 1200px;
+  margin: 120px auto;
+  padding: 0 40px;
+}
+
+.card {
+  position: relative;
+  background: rgba(18,18,18,0.8);
+  border-radius: 18px;
+  padding: 34px 28px;
+  min-height: 210px;
+
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(14px);
+
+  opacity: 0;
+  transform: translateY(40px);
+  animation: cardIn .8s ease forwards;
 
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    filter 0.2s ease;
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
 }
 
-/* Hover (과하지 않게) */
-.download-btn:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.05);
-  box-shadow:
-    0 12px 28px rgba(255, 255, 255, 0.12),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.75);
+/* stagger */
+.card:nth-child(1){animation-delay:.1s}
+.card:nth-child(2){animation-delay:.2s}
+.card:nth-child(3){animation-delay:.3s}
+.card:nth-child(4){animation-delay:.4s}
+
+@keyframes cardIn {
+  to { opacity:1; transform:translateY(0); }
 }
 
-/* Active */
-.download-btn:active {
-  transform: translateY(0);
-  box-shadow:
-    0 6px 16px rgba(255, 255, 255, 0.08),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+.card h3 {
+  font-size: 22px;
+  margin-bottom: 14px;
+  font-weight: 600;
 }
 
-/* =====================
-   Footer
-===================== */
-.footer {
-  margin-top: 36px;
-  font-size: 12px;
-  opacity: 0.4;
+.card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Hover Lift */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.75);
+  border-color: rgba(255,255,255,0.16);
+}
+
+/* Press */
+.card:active {
+  transform: translateY(-2px) scale(0.985);
+}
+
+/* ===== Scan Line ===== */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  opacity: .35;
+}
+
+.card:hover::before {
+  animation: scan 1.2s ease;
+}
+
+@keyframes scan {
+  from { left: -100%; }
+  to { left: 100%; }
+}
+
+/* ===== Noise Overlay ===== */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.06;
+  pointer-events: none;
+  border-radius: 18px;
+}
+
+/* Clickable card */
+.card.clickable {
+  cursor: pointer;
+}
+
+/* ===== FOOTER SPACE ===== */
+.spacer {
+  height: 140px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <div class="title">Luna</div>
-  <div class="subtitle">
-    Minimal. Clean. Reliable.
+<section class="hero">
+  <h1>Luna Executor</h1>
+  <p>Clean. Safe. Powerful Lua execution.</p>
+
+  <div class="actions">
+    <button class="action-btn"
+      onclick="window.open('https://gofile.io/d/7Ysi5W','_blank')">
+      Download Luna
+    </button>
+
+    <button class="action-btn secondary"
+      onclick="window.open('https://discord.gg/3J9hTjTgCy','_blank')">
+      Discord
+    </button>
+  </div>
+</section>
+
+<section class="cards">
+
+  <div class="card">
+    <h3>98% UNC</h3>
+    <p>High official UNC score better than Solara, Xeno</p>
   </div>
 
-  <button id="downloadBtn" class="download-btn">
-    Download Luna
-  </button>
-
-  <div class="footer">
-    Presented by Luna Project
+  <div class="card clickable"
+       onclick="window.open('https://r.sunc.su/gv5RmPUDj7','_blank')">
+    <h3>95% sUNC</h3>
+    <p>High official sUNC score better than Solara, Xeno</p>
   </div>
-</div>
 
-<script>
-/* =====================
-   Download Function
-===================== */
-function downloadLuna() {
-  // Google Drive direct view link
-  const driveUrl =
-    "https://gofile.io/d/7Ysi5W";
+  <div class="card">
+    <h3>Safe, Fast Execution</h3>
+    <p>Safe and Fast execution with own Module</p>
+  </div>
 
-  // 새 탭에서 열기 (Drive 정책상 직접 다운로드 트리거용)
-  window.open(driveUrl, "_blank");
-}
+  <div class="card">
+    <h3>Beginner Friendly UI</h3>
+    <p>Simple, Clean UI</p>
+  </div>
 
-/* =====================
-   Button Binding
-===================== */
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("downloadBtn");
-  btn.addEventListener("click", downloadLuna);
-});
-</script>
+</section>
+
+<div class="spacer"></div>
 
 </body>
 </html>
